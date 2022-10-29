@@ -1,0 +1,115 @@
+#map {
+  height: 99vh;
+}
+
+/*Legend specific*/
+.legend {
+  padding: 6px 8px;
+  font: 14px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  line-height: 24px;
+  color: #555;
+}
+.legend h4 {
+  text-align: center;
+  font-size: 16px;
+  margin: 2px 12px 8px;
+  color: #777;
+}
+
+.legend span {
+  position: relative;
+  bottom: 3px;
+}
+
+.legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin: 0 8px 0 0;
+  opacity: 0.7;
+}
+
+.legend i.icon {
+  background-size: 18px;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.leaflet-popup-content {
+  font-size: small;
+}
+
+.leaflet-control-layers-base {
+  font-size: small;
+}
+
+.search-input {
+  font-size: small;
+}
+.search-tooltip {
+  font-size: small;
+}
+
+.side-panel {
+  background: #f6e8c3;
+  width: 15vw;
+  height: 35vh;
+  align-items: center;
+  text-align: center;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  width: 90%;
+  color: black;
+}
+
+#btn-all {
+  background-color: #5ab4ac;
+  border: none;
+  border-radius: 10px;
+}
+#btn-yes {
+  background-color: #c7eae5;
+  border: none;
+  border-radius: 10px;
+}
+#btn-no {
+  background-color: #d8b365;
+  border: none;
+  border-radius: 10px;
+}
+
+.sidepanel-title {
+  width: 100%;
+  font-size: 2em;
+  color: #ffffff;
+  display: block;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.sidepanel-text {
+  width: 100%;
+  font-size: 1.5em;
+  font-style: normal;
+  color: #8c510a;
+  display: block;
+  text-align: center;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#myChart {
+  padding-top: 10px;
+  display: none;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- this will stay the same -->
+    <title>EarthWorks</title>
+    <meta charset="utf-8" />
+    <!-- bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+    />
+    <!--<link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    /-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+      integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="./node_modules/leaflet-search/src/leaflet-search.css"
+    />
+    <!--link
+      href="https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css"
+      rel="stylesheet"
+    /-->
+    <!--link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    /-->
+    <link rel="stylesheet" href="./style.css" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+      integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+      crossorigin=""
+    ></script>
+    <script src="https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="./node_modules/leaflet-search/src/leaflet-search.js"></script>
+    <script src="./main.js" type="module"></script>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <!-- filter BUTTONS -->
+
+    <!-- <div class="sidepanel">
+      <span class="sidepanel-title">Accommode</span>
+      <span class="sidepanel-text">Filter your data</span>
+      <div id="myChart"></div>
+      <div class="btn-group">
+        <button type="button" id="all" class="btn btn-light">All</button>
+        <button type="button" id="yes" class="btn btn-success">
+          NSFAS Accredited
+        </button>
+        <button type="button" id="no" class="btn btn-danger">
+          Not NSFAS Accredited
+        </button>
+      </div>
+    </div> -->
+  </body>
+</html>
