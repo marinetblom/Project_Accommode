@@ -53,8 +53,8 @@
 
 .side-panel {
   background: #f6e8c3;
-  width: 15vw;
-  height: 35vh;
+  width: 16vw;
+  height: 55vh;
   align-items: center;
   text-align: center;
 }
@@ -73,17 +73,23 @@
 }
 
 #btn-all {
-  background-color: #5ab4ac;
+  background-color: #999999;
   border: none;
   border-radius: 10px;
 }
 #btn-yes {
-  background-color: #c7eae5;
+  background-color: #91cf60;
   border: none;
   border-radius: 10px;
 }
 #btn-no {
-  background-color: #d8b365;
+  background-color: #fc8d59;
+  border: none;
+  border-radius: 10px;
+}
+
+#budget-btn {
+  background-color: #999999;
   border: none;
   border-radius: 10px;
 }
@@ -99,7 +105,7 @@
 
 .sidepanel-text {
   width: 100%;
-  font-size: 1.5em;
+  font-size: 1.7em;
   font-style: normal;
   color: #8c510a;
   display: block;
@@ -112,4 +118,21 @@
 #myChart {
   padding-top: 10px;
   display: none;
+}
+
+.budget {
+  font-size: 1.8em;
+  font-style: normal;
+}
+
+.price_text {
+  width: 100%;
+  font-size: 1.7em;
+  font-style: normal;
+  color: #8c510a;
+  display: block;
+  text-align: center;
+  padding-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
 }

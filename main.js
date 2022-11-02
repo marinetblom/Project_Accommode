@@ -93,16 +93,59 @@ function myIcon(distance) {
     return green;
   }
 }
-//add map scale
-// L.control
-//   .scale({ metric: true, imperial: false, position: "bottomright" })
-//   .addTo(map);
 
 //Load points to map
 var NSFASYes = [];
 var NSFASNo = [];
 var All = [];
 
+var Option1Arr = [];
+var Option2Arr = [];
+var Option3Arr = [];
+
+//Side panel
+var sidePanel = L.control({ position: "topleft" });
+sidePanel.onAdd = function (map) {
+  var div = L.DomUtil.create("div", "side-panel");
+  var sidePanelContent = `
+    <img src="Logo.png"/ style="height: 8vh; width: 12vw">
+    <span class="sidepanel-text">Click buttons below to filter your data</span>
+    <div id="myChart"></div>
+    <div class="btn-group">
+      <button type="button" id="btn-all" class="btn btn-danger">All</button>
+      <button type="button" id="btn-yes" class="btn btn-danger">
+        NSFAS Accredited
+      </button>
+      <button type="button" id="btn-no" class="btn btn-danger">
+        Not NSFAS Accredited
+      </button>
+    </div>
+
+
+    <span class="price_text">Select price range from dropdown list and click on "show"</span>
+    <div class="budget">
+    <label for="dropdown">Filter prices</label>
+    <select id="dropdown">
+      <option value="1">30000-60000</option>
+      <option value="2">60000-90000</option>
+      <option value="3">90000-110000</option>
+    </select>
+    </div>
+    <button type="button" id="budget-btn" class="btn btn-danger">Show</button>
+
+  `;
+  div.innerHTML = sidePanelContent;
+  return div;
+};
+sidePanel.addTo(map);
+
+//Get  value of dropdown list
+function getOption() {
+  let i = document.getElementById("dropdown").value;
+  return i;
+}
+
+//Load datapionts
 document.addEventListener("DOMContentLoaded", () => {
   const residencesRef = ref(db, "features/");
   onValue(residencesRef, (snapshot) => {
@@ -115,7 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
             new L.latLng([res.coordinates[1], res.coordinates[0]]),
             { ...res }
           );
-
           marker.setIcon(myIcon(res.Distance_to_Main));
           const popupContent = `
                   <b>Name:</b> ${res.Name} <br>
@@ -124,20 +166,35 @@ document.addEventListener("DOMContentLoaded", () => {
           return marker;
         }
 
+        //NSFAS Filter If ststement
         if (res.NSFAS_Acc == "Yes") {
           NSFASYes.push(marker());
         } else if (res.NSFAS_Acc == "No") {
           NSFASNo.push(marker());
         }
+
+        // Budget Filter If statement
+        if (res.Avg_Price <= 60000) {
+          Option1Arr.push(marker());
+        } else if (res.Avg_Price >= 60000 && res.Avg_Price <= 90000) {
+          Option2Arr.push(marker());
+        } else if (res.Avg_Price >= 90000) {
+          Option3Arr.push(marker());
+        }
       });
 
-      // Create layer groups to split data
+      // Create layer groups to split data for NSFAS
       let NSFASYesLayer = L.layerGroup(NSFASYes);
       let NSFASNoLayer = L.layerGroup(NSFASNo);
-      All = NSFASYes.concat(NSFASNo);
+      let All = NSFASYes.concat(NSFASNo);
       var AllLayer = L.layerGroup(All).addTo(map);
 
-      //layer control
+      //Budget Layers
+      let Option1Layer = L.layerGroup(Option1Arr);
+      let Option2Layer = L.layerGroup(Option2Arr);
+      let Option3Layer = L.layerGroup(Option3Arr);
+
+      //Layer control
       var baseMaps = {
         Default: tiles,
         "Show More": BaseMap_2,
@@ -157,28 +214,62 @@ document.addEventListener("DOMContentLoaded", () => {
         marker: false,
         moveToLocation: function (latlng, name, map) {
           map.flyTo(latlng, 19);
-          // e.layer.getPopup().setContent("test");
-          // e.layer.openPopup();
         },
       });
       controlSearch.addTo(map);
 
       // Filter with BUTTONS
-      $("#btn-yes").click(function () {
-        map.addLayer(NSFASYesLayer);
-        map.removeLayer(NSFASNoLayer);
-      });
-      $("#btn-no").click(function () {
-        map.addLayer(NSFASNoLayer);
-        map.removeLayer(NSFASYesLayer);
-      });
       $("#btn-all").click(function () {
+        map.removeLayer(NSFASYesLayer);
+        map.removeLayer(NSFASNoLayer);
+        map.removeLayer(Option1Layer);
+        map.removeLayer(Option2Layer);
+        map.removeLayer(Option3Layer);
+        map.addLayer(AllLayer);
+      });
+
+      $("#btn-yes").click(function () {
+        map.removeLayer(NSFASNoLayer);
+        map.removeLayer(AllLayer);
+        map.removeLayer(Option1Layer);
+        map.removeLayer(Option2Layer);
+        map.removeLayer(Option3Layer);
         map.addLayer(NSFASYesLayer);
+      });
+
+      $("#btn-no").click(function () {
+        map.removeLayer(NSFASYesLayer);
+        map.removeLayer(AllLayer);
+        map.removeLayer(Option1Layer);
+        map.removeLayer(Option2Layer);
+        map.removeLayer(Option3Layer);
         map.addLayer(NSFASNoLayer);
+      });
+
+      //Budget button
+      $("#budget-btn").click(function () {
+        map.removeLayer(NSFASYesLayer);
+        map.removeLayer(NSFASNoLayer);
+        map.removeLayer(AllLayer);
+
+        if (getOption() == 1) {
+          map.removeLayer(Option2Layer);
+          map.removeLayer(Option3Layer);
+          map.addLayer(Option1Layer);
+        } else if (getOption() == 2) {
+          map.removeLayer(Option1Layer);
+          map.removeLayer(Option3Layer);
+          map.addLayer(Option2Layer);
+        } else if (getOption() == 3) {
+          map.removeLayer(Option1Layer);
+          map.removeLayer(Option2Layer);
+          map.addLayer(Option3Layer);
+        }
       });
     }
   });
 });
+
 /*Legend */
 var legend = L.control({ position: "bottomleft" });
 legend.onAdd = function (map) {
@@ -192,24 +283,25 @@ legend.onAdd = function (map) {
 };
 legend.addTo(map);
 
-var sidePanel = L.control({ position: "topleft" });
-sidePanel.onAdd = function (map) {
-  var div = L.DomUtil.create("div", "side-panel");
-  var sidePanelContent = `
-    <img src="Logo.png"/ style="height: 8vh; width: 12vw">
-    <span class="sidepanel-text">Click buttons below to filter your data</span>
-    <div id="myChart"></div>
-    <div class="btn-group">
-      <button type="button" id="btn-all" class="btn btn-danger">All</button>
-      <button type="button" id="btn-yes" class="btn btn-danger">
-        NSFAS Accredited
-      </button>
-      <button type="button" id="btn-no" class="btn btn-danger">
-        Not NSFAS Accredited
-      </button>
-    </div>
-  `;
-  div.innerHTML = sidePanelContent;
-  return div;
-};
-sidePanel.addTo(map);
+// var sidePanel = L.control({ position: "topleft" });
+// sidePanel.onAdd = function (map) {
+//   var div = L.DomUtil.create("div", "side-panel");
+//   var sidePanelContent = `
+//     <img src="Logo.png"/ style="height: 8vh; width: 12vw">
+//     <span class="sidepanel-text">Click buttons below to filter your data</span>
+//     <div id="myChart"></div>
+//     <div class="btn-group">
+//       <button type="button" id="btn-all" class="btn btn-danger">All</button>
+//       <button type="button" id="btn-yes" class="btn btn-danger">
+//         NSFAS Accredited
+//       </button>
+//       <button type="button" id="btn-no" class="btn btn-danger">
+//         Not NSFAS Accredited
+//       </button>
+//     </div>
+
+//   `;
+//   div.innerHTML = sidePanelContent;
+//   return div;
+// };
+// sidePanel.addTo(map);
