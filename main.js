@@ -124,15 +124,14 @@ sidePanel.onAdd = function (map) {
 
     <span class="price_text">Select price range from dropdown list and click on "show"</span>
     <div class="budget">
-    <label for="dropdown">Filter prices</label>
     <select id="dropdown">
-      <option value="1">30000-60000</option>
-      <option value="2">60000-90000</option>
-      <option value="3">90000-110000</option>
+    <option> Choose Range </option> 
+      <option value="1">R30000 - R60000</option>
+      <option value="2">R60000 - R90000</option>
+      <option value="3">R90000 - R110000</option>
     </select>
     </div>
     <button type="button" id="budget-btn" class="btn btn-danger">Show</button>
-
   `;
   div.innerHTML = sidePanelContent;
   return div;
@@ -161,8 +160,91 @@ document.addEventListener("DOMContentLoaded", () => {
           marker.setIcon(myIcon(res.Distance_to_Main));
           const popupContent = `
                   <b>Name:</b> ${res.Name} <br>
-                  <b>Average Annual Price:</b> R${res.Avg_Price}`;
-          marker.bindPopup(popupContent);
+                  <b>Average Annual Price:</b> R${res.Avg_Price} <br>
+                  <button type="button" id="more" class="btn btn-danger">More</button>`;
+          marker.bindPopup(popupContent).on("popupopen", () => {
+            $("#more").on("click", (e) => {
+              e.preventDefault();
+              var bud = prompt("Enter your annual budget", "100000");
+              var rent = res.Avg_Price;
+              var rentPer = rent / bud;
+              var left = 100 - rentPer;
+              if (rent > bud) {
+                alert("Your budget is insufficient");
+              } else {
+                // CHART CONFIG
+                // -----------------------------
+                // let chartConfig = {
+                //   type: "pie",
+                //   backgroundColor: "#2B313B",
+                //   title: {
+                //     text: "How your budget will be spent",
+                //     align: "left",
+                //     fontColor: "#fff",
+                //     fontFamily: "Open Sans",
+                //     fontSize: "25px",
+                //     offsetX: "10px",
+                //   },
+                //   subtitle: {
+                //     text: "This graph shows what your budget will be spent on during one year of study.",
+                //     align: "left",
+                //     fontColor: "#8e99a9",
+                //     fontFamily: "Open Sans",
+                //     fontSize: "16px",
+                //     offsetX: "10px",
+                //     offsetY: "10px",
+                //   },
+                //   plot: {
+                //     tooltip: {
+                //       text: "%npv%",
+                //       padding: "5px 10px",
+                //       fontFamily: "Open Sans",
+                //       fontSize: "18px",
+                //     },
+                //     valueBox: {
+                //       text: "%t\n%npv%",
+                //       fontFamily: "Open Sans",
+                //       placement: "out",
+                //     },
+                //     animation: {
+                //       effect: "ANIMATION_EXPAND_VERTICAL",
+                //       method: "ANIMATION_REGULAR_EASE_OUT",
+                //       sequence: "ANIMATION_BY_PLOT",
+                //       speed: 500,
+                //     },
+                //     borderColor: "#2B313B",
+                //     borderWidth: "5px",
+                //   },
+                //   plotarea: {
+                //     margin: "20px 0 0 0",
+                //   },
+                //   series: [
+                //     {
+                //       text: "Food",
+                //       values: [50],
+                //       backgroundColor: "#50ADF5",
+                //     },
+                //     {
+                //       text: "Rent",
+                //       values: [50],
+                //       backgroundColor: "#6FB07F",
+                //     },
+                //   ],
+                // };
+
+                // // RENDER CHARTS
+                // // -----------------------------
+                // zingchart.render({
+                //   id: "myChart",
+                //   data: chartConfig,
+                //   height: "8vh",
+                //   width: "12vw",
+                // });
+
+                $("#myChart").append("<strong>Hello</strong>");
+              }
+            });
+          });
           return marker;
         }
 
@@ -269,7 +351,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
 /*Legend */
 var legend = L.control({ position: "bottomleft" });
 legend.onAdd = function (map) {

@@ -73,23 +73,29 @@
 }
 
 #btn-all {
-  background-color: #999999;
+  background-color: #c7eae5;
   border: none;
   border-radius: 10px;
 }
 #btn-yes {
-  background-color: #91cf60;
+  background-color: #99d594;
   border: none;
   border-radius: 10px;
 }
 #btn-no {
-  background-color: #fc8d59;
+  background-color: #fdae61;
   border: none;
   border-radius: 10px;
 }
 
 #budget-btn {
-  background-color: #999999;
+  background-color: #c7eae5;
+  border: none;
+  border-radius: 10px;
+}
+
+#more {
+  background-color: #c7eae5;
   border: none;
   border-radius: 10px;
 }
@@ -135,4 +141,18 @@
   padding-top: 10px;
   padding-left: 5px;
   padding-right: 5px;
+}
+
+.zc-body {
+  background-color: #2b313b;
+}
+
+.chart--container {
+  height: 10px;
+  width: 10px;
+  min-height: 20px;
+}
+
+.zc-ref {
+  display: none;
 }

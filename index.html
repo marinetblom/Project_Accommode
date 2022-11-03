@@ -43,19 +43,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="./node_modules/leaflet-search/src/leaflet-search.js"></script>
     <script src="./main.js" type="module"></script>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
   </head>
   <body>
     <div id="map"></div>
-
-    <!-- <div class="budget">
-      <label for="dropdown">Filter prices</label>
-      <select id="dropdown">
-        <option value="1">30000-60000</option>
-        <option value="2">60000-90000</option>
-        <option value="3">90000-110000</option>
-      </select>
-      <button type="button" id="budget-btn">Show</button>
-    </div> -->
 
     <!-- filter BUTTONS -->
 
@@ -73,5 +64,21 @@
         </button>
       </div>
     </div> -->
+
+    <div class="budget">
+      <label for="dropdown">Filter prices</label>
+      <select id="dropdown">
+        <option value="1">30000-60000</option>
+        <option value="2">60000-90000</option>
+        <option value="3">90000-110000</option>
+      </select>
+      <button type="button" id="budget-btn">Show</button>
+    </div>
+
+    <div id="myChart" class="chart--container">
+      <a href="https://www.zingchart.com/" rel="noopener" class="zc-ref"
+        >Powered by ZingChart</a
+      >
+    </div>
   </body>
 </html>
