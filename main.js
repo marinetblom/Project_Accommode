@@ -161,7 +161,8 @@ document.addEventListener("DOMContentLoaded", () => {
           const popupContent = `
                   <b>Name:</b> ${res.Name} <br>
                   <b>Average Annual Price:</b> R${res.Avg_Price} <br>
-                  <button type="button" id="more" class="btn btn-danger">More</button>`;
+                  <center>Visit the website <a href = ${res.url} target = "_blank">here</a></center> <br>
+                  <button type="button" id="more" class="btn btn-danger" title="Show budget distribution for this residence">Budget Distribution</button>`;
           marker.bindPopup(popupContent).on("popupopen", () => {
             $("#more").on("click", (e) => {
               e.preventDefault();
