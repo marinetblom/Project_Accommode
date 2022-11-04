@@ -65,20 +65,106 @@
       </div>
     </div> -->
 
-    <div class="budget">
-      <label for="dropdown">Filter prices</label>
-      <select id="dropdown">
-        <option value="1">30000-60000</option>
-        <option value="2">60000-90000</option>
-        <option value="3">90000-110000</option>
-      </select>
-      <button type="button" id="budget-btn">Show</button>
+    <div class="chart-parent--container">
+      <a href="chart" id="charta">
+        <div id="myChart1" class="chart--container">
+          <a class="zc-ref" href="https://www.zingchart.com"
+            >Powered by ZingChart</a
+          >
+        </div>
+      </a>
     </div>
 
-    <div id="myChart" class="chart--container">
-      <a href="https://www.zingchart.com/" rel="noopener" class="zc-ref"
-        >Powered by ZingChart</a
-      >
-    </div>
+    <script>
+      ZC.LICENSE = [
+        "569d52cefae586f634c54f86dc99e6a9",
+        "b55b025e438fa8a98e32482b5f768ff5",
+      ];
+
+      function makechart(rent, left, food, stationary) {
+        const pieConfig = {
+          type: "pie",
+          backgroundColor: "#2B313B",
+          title: {
+            text: "Budget Distribution",
+            align: "left",
+            fontColor: "#fff",
+            fontFamily: "Open Sans",
+            fontSize: "25px",
+            offsetX: "10px",
+          },
+          subtitle: {
+            text: "How your budget will be distributed",
+            align: "left",
+            fontColor: "#8e99a9",
+            fontFamily: "Open Sans",
+            fontSize: "16px",
+            offsetX: "10px",
+            offsetY: "10px",
+          },
+          plot: {
+            tooltip: {
+              text: "%npv%",
+              padding: "5px 10px",
+              fontFamily: "Open Sans",
+              fontSize: "18px",
+            },
+            valueBox: {
+              text: "%t\n%npv%",
+              fontFamily: "Open Sans",
+              placement: "out",
+            },
+            animation: {
+              effect: "ANIMATION_EXPAND_VERTICAL",
+              method: "ANIMATION_REGULAR_EASE_OUT",
+              sequence: "ANIMATION_BY_PLOT",
+              speed: 500,
+            },
+            borderColor: "#2B313B",
+            borderWidth: "5px",
+          },
+          plotarea: {
+            margin: "20px 0 0 0",
+          },
+          source: {
+            text: "Source: gs.statcounter.com",
+            fontColor: "#8e99a9",
+            fontFamily: "Open Sans",
+            textAlign: "left",
+          },
+          series: [
+            {
+              text: "Rent",
+              values: [rent],
+              backgroundColor: "#FF7965",
+            },
+            {
+              text: "Remainder",
+              values: [left],
+              backgroundColor: "#6FB07F",
+            },
+            {
+              text: "Food",
+              values: [food],
+              backgroundColor: "#FFCB45",
+            },
+            {
+              text: "Stationary",
+              values: [stationary],
+              backgroundColor: "#6877e5",
+            },
+          ],
+        };
+
+        zingchart.render({
+          id: "myChart1",
+          data: pieConfig,
+          height: "100%",
+          width: "100%",
+        });
+        const href = $(this).attr("charta");
+        $("html, body").animate({ scrollTop: $(href).offset().top }, 900);
+      }
+    </script>
   </body>
 </html>

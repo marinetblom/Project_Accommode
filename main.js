@@ -165,83 +165,22 @@ document.addEventListener("DOMContentLoaded", () => {
           marker.bindPopup(popupContent).on("popupopen", () => {
             $("#more").on("click", (e) => {
               e.preventDefault();
+              // chart variables
               var bud = prompt("Enter your annual budget", "100000");
               var rent = res.Avg_Price;
-              var rentPer = rent / bud;
+              var rentPer = (rent / bud) * 100;
+              var food = 14000;
+              var foodPer = (food / bud) * 100;
+              var stationary = 5200;
+              var stationaryPer = (stationary / bud) * 100;
               var left = 100 - rentPer;
-              if (rent > bud) {
-                alert("Your budget is insufficient");
+              //Test if budget will be sufficient
+              if (rent + food + stationary > bud) {
+                alert(
+                  "unfortunately, your annual budget will be insufficient for this residence"
+                );
               } else {
-                // CHART CONFIG
-                // -----------------------------
-                // let chartConfig = {
-                //   type: "pie",
-                //   backgroundColor: "#2B313B",
-                //   title: {
-                //     text: "How your budget will be spent",
-                //     align: "left",
-                //     fontColor: "#fff",
-                //     fontFamily: "Open Sans",
-                //     fontSize: "25px",
-                //     offsetX: "10px",
-                //   },
-                //   subtitle: {
-                //     text: "This graph shows what your budget will be spent on during one year of study.",
-                //     align: "left",
-                //     fontColor: "#8e99a9",
-                //     fontFamily: "Open Sans",
-                //     fontSize: "16px",
-                //     offsetX: "10px",
-                //     offsetY: "10px",
-                //   },
-                //   plot: {
-                //     tooltip: {
-                //       text: "%npv%",
-                //       padding: "5px 10px",
-                //       fontFamily: "Open Sans",
-                //       fontSize: "18px",
-                //     },
-                //     valueBox: {
-                //       text: "%t\n%npv%",
-                //       fontFamily: "Open Sans",
-                //       placement: "out",
-                //     },
-                //     animation: {
-                //       effect: "ANIMATION_EXPAND_VERTICAL",
-                //       method: "ANIMATION_REGULAR_EASE_OUT",
-                //       sequence: "ANIMATION_BY_PLOT",
-                //       speed: 500,
-                //     },
-                //     borderColor: "#2B313B",
-                //     borderWidth: "5px",
-                //   },
-                //   plotarea: {
-                //     margin: "20px 0 0 0",
-                //   },
-                //   series: [
-                //     {
-                //       text: "Food",
-                //       values: [50],
-                //       backgroundColor: "#50ADF5",
-                //     },
-                //     {
-                //       text: "Rent",
-                //       values: [50],
-                //       backgroundColor: "#6FB07F",
-                //     },
-                //   ],
-                // };
-
-                // // RENDER CHARTS
-                // // -----------------------------
-                // zingchart.render({
-                //   id: "myChart",
-                //   data: chartConfig,
-                //   height: "8vh",
-                //   width: "12vw",
-                // });
-
-                $("#myChart").append("<strong>Hello</strong>");
+                makechart(rentPer, left, foodPer, stationaryPer);
               }
             });
           });

@@ -92,6 +92,7 @@
   background-color: #c7eae5;
   border: none;
   border-radius: 10px;
+  margin-top: 10px;
 }
 
 #more {
@@ -143,14 +144,16 @@
   padding-right: 5px;
 }
 
+@import "https://fonts.googleapis.com/css?family=Open+Sans";
+
 .zc-body {
   background-color: #2b313b;
 }
 
 .chart--container {
-  height: 10px;
-  width: 10px;
-  min-height: 20px;
+  height: 100%;
+  width: 100%;
+  min-height: 530px;
 }
 
 .zc-ref {
